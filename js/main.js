@@ -1,58 +1,108 @@
 $(document).ready(function(){
 	console.log("ready to go!");
 	sizedWindows();
-	setDefault()
-	nextPic();
-	prevPic();
+	setDefault();
 	makeItMain();
+	slideOnCell();
+	onButtonPressed();
+	// keyCode();
 
+	$(".prevBtn, .prevClickArea").click(function(){
+		prevPic();
+	});
+	$(".nextBtn, .nextClickArea").click(function(){
+		nextPic();
+	});
+
+	$(window).resize(function(){
+		sizedWindows();
+	});
 });
 
 	/*$(".img").on("mousemove", function(event){
 		$("#output").text("X: " + event.pageX + "Y: " + event.pageY);
 		// console.log(event.pageX, event.pageY);
-	});*/
-$(window).resize(function(){
-	sizedWindows();
-});
-
-function sizedWindows(){
-
-	// getting with of side and main divs
-	var mainWidth = $(".mainImg").innerWidth();
-	var sideWidth = $(".sideImg").innerWidth();
-
-	// making heigth same as width 
-	$(".mainImg").css("height", mainWidth);
-	$(".sideImg").css("height", sideWidth);
-	$(".sideImg").css("top", (mainWidth - sideWidth) / 2);
-
-	// making pictures same size as divs
-	$(".sideImg img").css("width", sideWidth);
-	$(".mainImg img").css("width", mainWidth);
-	if (window.innerWidth < 800){
-		console.log("width", mainWidth);
-		$("#collection").css("width", mainWidth);
-
-	}
-	
-};
-
-var picArr = ["bike1", "bike2", "bike3", "bike4", "bike5", "bike6"];
-var mainPic, counter;
-
+	});*/		
+// setting up default pictures
 function setDefault(){
 	mainPic = picArr[1];
 	counter = 1;
 	setMainPic(mainPic);
+
+	$(".prevClickArea").hover(
+		function(){
+			$(".prevBtn").css("opacity", "1")
+		},function(){
+			$(".prevBtn").css("opacity", "0.5")
+		}
+	);
+	$(".nextClickArea").hover(
+		function(){
+			$(".nextBtn").css("opacity", "1")
+		},function(){
+			$(".nextBtn").css("opacity", "0.5")
+		}
+	);
+
 }
 
+function slideOnCell(){
+	$(".mainContainer").on("mousedown", function(e){
+		console.log("moseDown");
+		calcCoor();
+	});
+};
+function mouseUp(){
+	$(".mainConteiner").on("mouseup", function(e){
+		console.log("moseUp");
+
+		slide();
+	});
+};
+
+function calcCoor(){
+	$(".mainContainer").mousemove(function(e){
+		$(".output").html("X: " + e.pageX + "Y: " + e.pageY);
+	});
+};
+
+function keyCode(){
+	$(window).on("keydown", function(e){
+		console.log(e.which);
+	});
+};
+
+function sizedWindows(){
+
+	// get with of side and main divs
+	var mainWidth = $(".mainContainer").innerWidth();
+	var sideWidth = $(".sideContainer").innerWidth();
+
+	// make heigth same as width 
+	$(".mainContainer").css("height", mainWidth);
+	$(".sideContainer").css("height", sideWidth);
+	$(".sideContainer").css("top", (mainWidth - sideWidth) / 2);
+
+	// correct height and width of click area
+	$(".clickArea").css("height", mainWidth+3);
+	$(".clickArea").css("width", mainWidth/2+3);
+
+	// make pictures same size as divs
+	$(".sideContainer img").css("width", sideWidth);
+	$(".mainContainer img").css("width", mainWidth);
+	if (window.innerWidth < 800){
+		$("#collection").css("width", mainWidth);
+	}
+};
+var picArr = ["bike1", "bike2", "bike3", "bike4", "bike5", "bike6"];
+var mainPic, counter;
+// main picture
 function setMainPic(pic){
-	$(".mainImg img").attr("src", "libs/" + pic + ".png");
+	$(".mainContainer img").attr("src", "libs/" + pic + ".png");
 }
-
+// changing pictures functions
+// next picture
 function nextPic(){
-	$(".nextSlide").click(function(){
 		counter++;
 		for (let i=0; i<picArr.length; i++){
 			if(counter >= picArr.length){
@@ -63,14 +113,12 @@ function nextPic(){
 		};
 		changeRightPic();
 		changeLeftPic();
-	});
 }
+// previous picture
 function prevPic(){
-	$(".prevSlide").click(function(){
 		counter--;
 		for (let i=0; i<picArr.length; i++){
 			if(counter < 0){
-				console.log("less");
 				counter = picArr.length - 1;
 			} 
 			mainPic = picArr[counter];
@@ -78,27 +126,45 @@ function prevPic(){
 		};
 		changeRightPic();
 		changeLeftPic();
+}
+// changing pictures on pressing right/left button func 
+function onButtonPressed(){
+	$(window).on("keydown", function(e){
+		switch(e.which){
+		case 39:
+			$(".nextBtn").css("opacity", "1");
+			$(".prevBtn").css("opacity", "0.5");
+			nextPic();	
+			break;
+		case 37:
+			$(".prevBtn").css("opacity", "1");
+			$(".nextBtn").css("opacity", "0.5");
+			prevPic();
+			break;
+		}
 	});
 }
-
-
+// changing side pictures funcs
+// right side picture
 function changeRightPic(){
 		var right = counter + 1;
 		if(right == picArr.length){
 			right = 0;
 		}
 		var rightPic = picArr[right];
-		$(".rightImg img").attr("src", "libs/" + rightPic + ".png");
+		$(".rightContainer img").attr("src", "libs/" + rightPic + ".png");
 };
+// left side picture
 function changeLeftPic(){
 	var left = counter - 1;
 	if(left < 0){
 		left = picArr.length - 1;
 	}
 	var leftPic = picArr[left];
-	$(".leftImg img").attr("src", "libs/" + leftPic + ".png");
+	$(".leftContainer img").attr("src", "libs/" + leftPic + ".png");
 
 }
+// setting up a picture from the collection as a main picture
 function makeItMain(){
 	$("#collection img").click(function(){
 		var position = this.alt;

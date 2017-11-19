@@ -1,9 +1,9 @@
 @media screen and (max-width: 800px){
-	.sideImg{
+	.sideContainer{
 		display: none;
 	}
 } 
-.mainImg{
+.mainContainer{
 	display: inline-block;
 	position: relative;
 	left: 50%;
@@ -13,7 +13,7 @@
 	background-color: blue;
 	border-radius: 10px;
 }
-.sideImg{
+.sideContainer{
 	position: absolute;
 	width: 20%;
 	height: 300px;
@@ -21,56 +21,62 @@
 	background-color: purple;
 	border-radius: 10px;
 }
-.mainImg img, .sideImg img{
+.mainContainer img, .sideContainer img{
 	position: relative;
-	top: 50%;
 	transform: translate(0%, -50%);
 }
-.leftImg{
+.leftContainer{
 	left: 50px;
 }
-.rightImg{
+.rightContainer{
 	right: 50px;
 }
-.prevSlide, .nextSlide{
-	width: 50%;
-	height: 400px;
-	margin-right: -4px;
-}
-.btn{
-	width: 30px;
-	height: 55px;
-	border-radius: 5px;
-	cursor: pointer;
+.clickArea{
 	position: absolute;
-	font-size: 50px;
-	color: grey;
-	font-weight: bold;
+	opacity: 0;
+	width: 50%;
+	margin-right: -4px;
 	background-color: purple;
-	opacity: 0.8;
-
+	border-radius: 10px;
+	cursor: pointer;
 }
-.btn:hover{
-	opacity: 1;
-}
-#prevBtn{
+.center{
 	top: 50%;
 	bottom: 50%;
+}
+.prevClickArea{
+	left:0px;
     transform: translate(0%, -50%);
-	left: 5px;
 }
-#autoplayBtn{
-	top: 5px;
-	left: 50%;
-	right: 50%;
-	transform: translate(-50%);
-
+.nextClickArea{
+    right:4px;
+    transform: translate(0%, -50%);
 }
-#nextBtn{
+div .nextBtn, div .prevBtn{
+	position: absolute;
+	width: 30px;
+	height: 70px;
+	background-color: purple;
+	z-index: 1;
 	top: 50%;
 	bottom: 50%;
-    transform: translate(0%, -50%);
+	transform: translateY(-50%);
+	opacity: 0.5;
+	border-radius: 5px;
+	font-size: 35px;
+	font-weight: bold;
+	line-height: 70px;
+	text-align: center;
+	cursor: pointer;
+}
+div .nextBtn:hover, div .prevBtn:hover{
+	opacity: 1 !important;
+}
+.nextBtn{
 	right: 5px;
+}
+.prevBtn{
+	left: 5px;
 }
 #collection{
 	display: flex;
@@ -88,4 +94,19 @@
 	width: 100px;
 	height: 100px;
 	cursor: pointer;
+}
+#collection img:hover{
+	background: blue;
+	border-radius: 5px;
+}
+.output{
+	position: absolute;
+	left: 5px;
+	bottom: 5px;
+	width: 300px;
+	height: 100px;
+	/*margin: 0px;*/
+	/*left: 50%;*/
+	/*transform: translateX(-50%);*/
+	background-color: grey; 
 }

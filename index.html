@@ -2,26 +2,26 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Document</title>
+	<title>Slider</title>
 	<link rel="stylesheet" href="css/styles.css">
 	<script src="libs/jquery-3.2.1.min.js"></script>
 </head>
 
 <body>
-	<div class="sideImg leftImg">
-		<img src="libs/bike1.png" alt="bike">
+	<div class="output"></div>
+	<div class="sideContainer leftContainer">
+		<img class="center" src="libs/bike1.png" alt="bike">
 	</div>
-	<div class="mainImg">
-		<img src="" alt="bike">
-		<!-- <div class="prevSlide"></div> -->
-		<!-- <div class="nextSlide"></div> -->
-		<div id="prevBtn" class="btn prevSlide"><</div>
-		<!-- <button type="button" id="autoplayBtn" class="btn">Autoplay</button> -->
-		<div id="nextBtn" class="btn nextSlide">></div>
+	<div class="mainContainer">
+		<div class="nextBtn">&gt</div>
+		<div class="prevBtn">&lt</div>
+		<img class="center" src="" alt="bike">
+		<div class="prevClickArea clickArea center"></div>
+		<div class="nextClickArea clickArea center"></div>
 	</div>  
 
-	<div class="sideImg rightImg">
-		<img src="libs/bike3.png" alt="bike">
+	<div class="sideContainer rightContainer">
+		<img class="center" src="libs/bike3.png" alt="bike">
 	</div>
 
 	<div id="collection">
