@@ -65,7 +65,7 @@ function calcCoor(){
 		$(".output").html("X: " + e.pageX + "Y: " + e.pageY);
 	});
 };
-
+// show keyCode on pressing buttons
 function keyCode(){
 	$(window).on("keydown", function(e){
 		console.log(e.which);
